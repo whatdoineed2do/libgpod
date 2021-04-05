@@ -1693,6 +1693,7 @@ static MHODData get_mhod (FImport *fimp, glong mhod_seek, guint32 *ml)
 		  guint32 children;
 		  gint j;
 		  gunichar2 *string_utf16;
+		  gchar *string_utf8;
 		  startpos = get32bint (cts, seek+8);
 		  children = get32bint (cts, seek+12);
 		  seek += 20;
@@ -1710,9 +1711,10 @@ static MHODData get_mhod (FImport *fimp, glong mhod_seek, guint32 *ml)
 				return result;  /* *ml==-1, result.valid==FALSE */
 			  }
 			  fixup_big_utf16 (string_utf16);
-			  itdb_chapterdata_add_chapter(result.data.chapterdata,startpos,g_utf16_to_utf8 (
-				string_utf16, -1, NULL, NULL, NULL));
+			  string_utf8 = g_utf16_to_utf8 (string_utf16, -1, NULL, NULL, NULL);
+			  itdb_chapterdata_add_chapter(result.data.chapterdata,startpos, string_utf8);
 			  g_free (string_utf16);
+			  g_free (string_utf8);
 		      }
 		      seek += childlength;
 		  }
