@@ -6165,6 +6165,9 @@ err:
     if (fexp->artists != NULL) {
 	g_hash_table_destroy (fexp->artists);
     }
+    if (fexp->composers!= NULL) {
+	g_hash_table_destroy (fexp->composers);
+    }
     g_free (fexp);
     if (result == TRUE)
     {
